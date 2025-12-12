@@ -235,7 +235,7 @@ export default function LandingPage() {
                 </div>
                 <h4 className="text-xl font-bold text-foreground">Identifica</h4>
                 <p className="text-sm text-muted-foreground leading-relaxed">
-                  Nuestra IA analiza y clasifica el material en tiempo real
+                  Nuestra IA analiza y clasifica el material
                 </p>
               </div>
             </div>

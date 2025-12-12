@@ -4,6 +4,7 @@ import type React from "react"
 
 import { useState, useRef } from "react"
 import Link from "next/link"
+import Image from "next/image";
 import { Camera, Upload, Loader2, Recycle, Sparkles, Info, RefreshCw, Leaf, X, Trash2, ArrowLeft } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
@@ -27,13 +28,18 @@ const materials: Record<string, MaterialType> = {
     icon: "♻️",
     color: "bg-warning/10 text-warning-foreground border-warning",
     points: 50,
-    tips: ["Enjuaga la botella antes de reciclar", "Aplasta para reducir volumen", "Retira la tapa si es posible"],
-    disposal: "Contenedor Amarillo",
-    disposalColor: "bg-yellow-500",
+    tips: [
+      "Enjuaga la botella antes de reciclar",
+      "Aplasta para reducir volumen",
+      "Retira la tapa si es posible"
+    ],
+    disposal: "Contenedor Blanco",          // ✅ CORREGIDO
+    disposalColor: "bg-white text-black",   // ✅ BLANCO VISIBLE
     envFact:
       "Las botellas de PET son 100% reciclables. Al reciclarla, ahorras energía para mantener una bombilla encendida por 6 horas.",
     decompositionTime: "450 años",
   },
+
   paper: {
     name: "Papel o Cartón",
     icon: "📦",
@@ -152,29 +158,42 @@ export default function ScanPage() {
     <div className="min-h-screen bg-gradient-to-b from-background via-muted/30 to-background">
       {/* Header */}
       <header className="border-b border-border/40 bg-card/50 backdrop-blur-sm sticky top-0 z-50">
-        <div className="container mx-auto px-4 py-4 md:py-6">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-3">
-              <Link href="/" className="flex items-center gap-3 hover:opacity-80 transition-opacity">
-                <div className="relative">
-                  <Recycle className="h-8 w-8 md:h-10 md:w-10 text-primary animate-float" />
-                  <div className="absolute inset-0 bg-primary/20 rounded-full blur-xl animate-pulse-ring" />
-                </div>
-                <div>
-                  <h1 className="text-2xl md:text-3xl font-bold text-foreground text-balance">SmartRecycle Coach</h1>
-                  <p className="text-xs md:text-sm text-muted-foreground hidden sm:block">Powered by AI</p>
-                </div>
-              </Link>
+      <div className="container mx-auto px-4 py-4 md:py-6">
+        <div className="flex items-center justify-between">
+
+          <div className="flex items-center gap-3"> {/* Mejor separación */}
+            
+            {/* Contenedor del logo */}
+            <div className="relative -translate-y-1">
+              <Image
+                src="/logo.png"
+                alt="SmartRecycle Logo"
+                width={80}
+                height={80}
+                className="h-10 w-10 md:h-12 md:w-12 scale-120 object-contain"
+              />
             </div>
-            <Link href="/">
+
+            <div>
+              <h1 className="text-xl md:text-2xl font-bold text-foreground text-balance">
+                SmartRecycle Coach
+              </h1>
+            </div>
+
+          </div>
+
+          <Link href="/">
               <Button variant="ghost" size="sm" className="gap-2">
                 <ArrowLeft className="h-4 w-4" />
                 <span className="hidden sm:inline">Volver</span>
               </Button>
             </Link>
-          </div>
+
         </div>
-      </header>
+      </div>
+    </header>
+
+      
 
       <main className="container mx-auto px-4 py-8 md:py-12 max-w-4xl">
         {/* Hero Section */}
@@ -252,17 +271,22 @@ export default function ScanPage() {
           <div className="space-y-6 animate-in fade-in duration-500">
             {/* Image Preview */}
             <Card className="overflow-hidden">
-              <div className="relative aspect-video bg-muted">
+              <div className="relative aspect-video flex items-center justify-center overflow-hidden">
                 <img
                   src={selectedImage || "/placeholder.svg"}
                   alt="Uploaded waste"
-                  className="w-full h-full object-contain"
+                  className="max-h-full max-w-full object-contain"
                 />
-                <Button variant="secondary" size="icon" className="absolute top-4 right-4" onClick={resetScan}>
+
+                <Button
+                  variant="secondary"
+                  size="icon"
+                  className="absolute top-4 right-4"
+                  onClick={resetScan}
+                >
                   <X className="h-5 w-5" />
                 </Button>
-              </div>
-
+</div>
               {/* Scanning Animation */}
               {isScanning && (
                 <div className="p-8 md:p-12 bg-card border-t">
@@ -282,16 +306,21 @@ export default function ScanPage() {
               {/* Detection Result */}
               {detectedMaterial && !isScanning && (
                 <div className="p-6 md:p-8 bg-gradient-to-br from-card to-muted/30 border-t space-y-6 animate-in slide-in-from-bottom duration-500">
-                  <div className="flex items-start gap-4">
-                    <div className="text-5xl md:text-6xl animate-float">{detectedMaterial.icon}</div>
-                    <div className="flex-1 space-y-2">
-{/*                       <Badge className={`${detectedMaterial.color} text-sm font-semibold`}>
-                        +{detectedMaterial.points} Puntos
-                      </Badge> */}
-                      <h3 className="text-xl md:text-2xl font-bold text-foreground">{detectedMaterial.name}</h3>
-                      <p className="text-sm md:text-base text-muted-foreground">Material detectado con éxito</p>
-                    </div>
+                  <div className="flex items-center gap-4">
+                  <div className="flex items-center justify-center text-6xl md:text-7xl animate-float">
+                    {detectedMaterial.icon}
                   </div>
+
+                  <div className="flex-1 space-y-2">
+                    <h3 className="text-xl md:text-2xl font-bold text-foreground">
+                      {detectedMaterial.name}
+                    </h3>
+                    <p className="text-sm md:text-base text-muted-foreground">
+                      Material detectado con éxito
+                    </p>
+                  </div>
+                </div>
+
 
                   {/* Environmental Fact */}
                   <Card className="bg-primary/5 border-primary/20 p-4">
@@ -324,24 +353,24 @@ export default function ScanPage() {
                   {/* Disposal Information */}
                   <div className="grid md:grid-cols-2 gap-4">
                     <Card className="p-5 bg-card border-border relative overflow-hidden">
-                      <div className="relative z-10 space-y-3">
-                        <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wide flex items-center gap-2">
-                          <Trash2 className="h-4 w-4" />
-                          Disposición Correcta
-                        </p>
-                        <div className="flex items-center gap-4">
-                          <div
-                            className={`w-16 h-20 ${detectedMaterial.disposalColor} rounded-lg relative shadow-lg flex flex-col items-center justify-end pb-2 transition-transform hover:scale-105`}
-                          >
-                            <div className="absolute top-1 left-1/2 -translate-x-1/2 w-10 h-2 bg-black/20 rounded-t-lg"></div>
-                            <Trash2 className="h-6 w-6 text-white/90" />
-                          </div>
-                          <div className="flex-1">
-                            <p className="font-bold text-lg text-foreground">{detectedMaterial.disposal}</p>
-                            <p className="text-xs text-muted-foreground mt-1">Deposita aquí tu residuo</p>
-                          </div>
-                        </div>
-                      </div>
+<div className="flex items-center gap-4">
+  <div
+    className={`w-16 h-20 ${detectedMaterial.disposalColor} rounded-lg relative shadow-lg flex items-center justify-center transition-transform hover:scale-105`}
+  >
+    <div className="absolute top-1 left-1/2 -translate-x-1/2 w-10 h-2 bg-black/20 rounded-t-lg"></div>
+    <Recycle className="h-7 w-7 text-green-600" />
+  </div>
+
+  <div className="flex-1">
+    <p className="font-bold text-lg text-foreground">
+      {detectedMaterial.disposal}
+    </p>
+    <p className="text-xs text-muted-foreground mt-1">
+      Deposita aquí tu residuo
+    </p>
+  </div>
+</div>
+
                     </Card>
                     <Card className="p-5 bg-destructive/5 border-destructive/20">
                       <div className="space-y-2">
@@ -405,7 +434,7 @@ export default function ScanPage() {
                 </div>
                 <h3 className="font-semibold text-foreground">Escaneo Rápido</h3>
                 <p className="text-sm text-muted-foreground leading-relaxed">
-                  Identifica cualquier material reciclable en segundos con nuestra IA
+                  Identifica cualquier material reciclable con nuestra IA
                 </p>
               </div>
             </Card>
