@@ -1,0 +1,15 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  margin: 0;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  background-color: #f8fafc;
+}
+
+@layer utilities {
+  .glass-card {
+    @apply bg-white bg-opacity-90 backdrop-blur-lg border border-white/20 shadow-xl rounded-2xl;
+  }
+}
