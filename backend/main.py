@@ -6,8 +6,9 @@ from api.health import router as health_router
 from api.classify import router as classify_router
 from api.session import router as session_router
 
-
 from services.gamification_service import update_progress
+
+
 
 app = FastAPI(
     title="Waste Classifier API",
@@ -23,6 +24,8 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+
 
 # Routers
 app.include_router(health_router)

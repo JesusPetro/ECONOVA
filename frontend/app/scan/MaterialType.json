@@ -1,0 +1,335 @@
+{
+  "plastic": {
+    "name": "Botella de Plástico PET",
+    "icon": "♻️",
+    "color": "bg-warning/10 text-warning-foreground border-warning",
+    "points": 50,
+    "disposal": "Contenedor Blanco",
+    "disposalColor": "bg-white text-black border border-black/20",
+    "envFact": "Separarlo limpio y seco mejora el aprovechamiento.",
+    "decompositionTime": "450 años",
+    "tips": [
+      {
+        "type": "diy",
+        "title": "Haz una maceta con la botella",
+        "summary": "Corta y reutiliza la botella como matera; ideal para plantas pequeñas o semilleros.",
+        "examples": ["Maceta colgante", "Semillero para huerta", "Maceta decorada para escritorio"],
+        "resources": [
+          {
+            "title": "Macetero reutilizando botella plástica (video)",
+            "url": "https://www.youtube.com/watch?v=EJEaxSZkMp8",
+            "kind": "youtube"
+          }
+        ]
+      },
+      {
+        "type": "sell",
+        "title": "Véndelo por kg (o entrégalo a recicladores/centros de acopio)",
+        "summary": "Lávalo, sécalo y almacénalo limpio; los precios varían por ciudad/mes y por tipo de plástico.",
+        "examples": ["Separar PET por aparte", "Compactar para ocupar menos", "Entregar a organización de recicladores"]
+      },
+      {
+        "type": "recycle",
+        "title": "Prepáralo para la bolsa blanca",
+        "summary": "Vacía, enjuaga si hace falta y deja secar. Evita contaminación con comida o líquidos.",
+        "examples": ["Botella de gaseosa enjuagada y seca", "Envase de shampoo bien escurrido"]
+      }
+    ],
+    "moreInfo": {
+      "acceptedExamples": ["Botellas PET", "Envases plásticos limpios y secos"],
+      "notAcceptedExamples": ["Envases con químicos peligrosos", "Plásticos muy contaminados sin limpiar"],
+      "commonMistakes": ["Entregar mojado", "Entregar con restos de comida"]
+    }
+  },
+
+  "paper": {
+    "name": "Papel / Cartón",
+    "icon": "📦",
+    "color": "bg-blue-100 dark:bg-blue-900/20 text-blue-700 dark:text-blue-300 border-blue-300",
+    "points": 40,
+    "disposal": "Contenedor Blanco",
+    "disposalColor": "bg-white text-black border border-black/20",
+    "envFact": "Separar papel y cartón limpios aumenta el aprovechamiento y reduce la contaminación de reciclables.",
+    "decompositionTime": "2-6 meses",
+    "tips": [
+      {
+        "type": "diy",
+        "title": "Organizador de escritorio con cartón",
+        "summary": "Reutiliza cajas de cartón para hacer organizadores de cables, lápices o herramientas.",
+        "examples": ["Organizador de cables", "Porta-lápices", "Bandeja para papeles"],
+        "resources": [
+          {
+            "title": "Organizadores con cartón (video)",
+            "url": "https://www.youtube.com/watch?v=-TVE9zPhX2A",
+            "kind": "youtube"
+          }
+        ]
+      },
+      {
+        "type": "diy",
+        "title": "Papel reciclado artesanal",
+        "summary": "Puedes hacer hojas recicladas con papel usado (sin grasa) para tarjetas o manualidades.",
+        "examples": ["Tarjetas hechas a mano", "Hojas recicladas para bocetos"],
+        "resources": [
+          {
+            "title": "Cómo hacer papel reciclado (video)",
+            "url": "https://www.youtube.com/watch?v=NuolYEzK_Mc",
+            "kind": "youtube"
+          }
+        ]
+      },
+      {
+        "type": "sell",
+        "title": "Sepáralo y entrégalo limpio para venta/reciclaje",
+        "summary": "Aplana cajas, mantén el cartón seco y sin grasa. Eso sube su valor y facilidad de aprovechamiento.",
+        "examples": ["Aplanar cajas", "Guardar seco", "Separar de orgánicos"],
+        "resources": [
+          {
+            "title": "Reciclaje de cartón: buenas prácticas (blog)",
+            "url": "https://www.youtube.com/watch?v=PyTt1Ms01Mk",
+            "kind": "blog"
+          }
+        ]
+      }
+    ],
+    "moreInfo": {
+      "acceptedExamples": ["Cajas limpias", "Hojas de papel", "Periódicos", "Cartón corrugado"],
+      "notAcceptedExamples": ["Papel higiénico", "Servilletas usadas", "Cartón con grasa (pizza)"],
+      "commonMistakes": ["Meter cartón grasoso como reciclable", "Entregar mojado"],
+      "resources": []
+    }
+  },
+
+  "glass": {
+    "name": "Vidrio (envases)",
+    "icon": "🍷",
+    "color": "bg-emerald-100 dark:bg-emerald-900/20 text-emerald-700 dark:text-emerald-300 border-emerald-300",
+    "points": 60,
+    "disposal": "Contenedor Blanco",
+    "disposalColor": "bg-white text-black border border-black/20",
+    "envFact": "Los envases de vidrio pueden reutilizarse muchas veces y reciclarse múltiples ciclos.",
+    "decompositionTime": "4000 años",
+    "tips": [
+      {
+        "type": "diy",
+        "title": "Frascos como contenedores (cocina/baño)",
+        "summary": "Reutiliza frascos para guardar granos, tornillos, algodón o especias.",
+        "examples": ["Frasco para arroz/lentejas", "Frasco para tornillos", "Frasco para especias"],
+        "resources": [
+          {
+            "title": "Ideas con frascos de vidrio (video)",
+            "url": "https://www.youtube.com/watch?v=yBU7imbNqRM",
+            "kind": "youtube"
+          }
+        ]
+      },
+      {
+        "type": "diy",
+        "title": "Portavelas o lámpara decorativa",
+        "summary": "Un frasco puede convertirse en portavelas decorativo o lámpara sencilla con luces LED.",
+        "examples": ["Portavelas con frasco", "Luces LED dentro del frasco"],
+        "resources": [
+          {
+            "title": "DIY portavelas con frascos (video)",
+            "url": "https://www.youtube.com/watch?v=moCUbwrqjgE",
+            "kind": "youtube"
+          }
+        ]
+      },
+      {
+        "type": "recycle",
+        "title": "Prepáralo para reciclaje",
+        "summary": "Vacía, enjuaga si es necesario y retira tapa/corcho. No mezcles con cerámica, espejos o bombillos.",
+        "examples": ["Frasco de mermelada limpio", "Botella de vidrio vacía"]
+      }
+    ],
+    "moreInfo": {
+      "acceptedExamples": ["Botellas", "Frascos"],
+      "notAcceptedExamples": ["Cerámica", "Espejos", "Bombillos", "Vidrio templado"],
+      "commonMistakes": ["Mezclar vasos/copas con envases", "Tirar vidrio roto sin protección"],
+      "resources": []
+    }
+  },
+
+   "metal": {
+    "name": "Metal (latas)",
+    "icon": "🥫",
+    "color": "bg-slate-100 dark:bg-slate-800/50 text-slate-700 dark:text-slate-300 border-slate-300",
+    "points": 70,
+    "disposal": "Contenedor Blanco",
+    "disposalColor": "bg-white text-black border border-black/20",
+    "envFact": "El metal se aprovecha mejor cuando está limpio y sin residuos de comida.",
+    "decompositionTime": "200-500 años",
+    "tips": [
+      {
+        "type": "diy",
+        "title": "Portalápices con latas",
+        "summary": "Lava la lata, elimina bordes peligrosos y úsala como organizador.",
+        "examples": ["Portalápices", "Organizador de brochas", "Organizador de herramientas pequeñas"],
+        "resources": [
+          {
+            "title": "Manualidades con latas (video)",
+            "url": "https://www.youtube.com/watch?v=_279h-_FGhk",
+            "kind": "youtube"
+          }
+        ]
+      },
+      {
+        "type": "diy",
+        "title": "Maceta con latas",
+        "summary": "Perfora el fondo para drenaje y úsala como maceta pequeña.",
+        "examples": ["Maceta para suculentas", "Maceta para hierbas"],
+        "resources": [
+          {
+            "title": "Macetas con latas (video)",
+            "url": "https://www.youtube.com/watch?v=sdYVMjdaE30",
+            "kind": "youtube"
+          }
+        ]
+      },
+      {
+        "type": "recycle",
+        "title": "Lava y aplasta (si es seguro)",
+        "summary": "Enjuaga y escurre. Aplasta para reducir volumen, evitando cortarte.",
+        "examples": ["Lata de bebida enjuagada", "Lata de conserva escurrida"]
+      }
+    ],
+    "moreInfo": {
+      "acceptedExamples": ["Latas de bebidas", "Latas de conservas"],
+      "notAcceptedExamples": ["Pilas/baterías", "Electrónicos", "Aerosoles presurizados (según ruta)"],
+      "commonMistakes": ["Tirar con restos de comida", "Cortarse por no manejar bordes"],
+      "resources": []
+    }
+  },
+
+   "organic": {
+    "name": "Residuo Orgánico",
+    "icon": "🍎",
+    "color": "bg-amber-100 dark:bg-amber-900/20 text-amber-700 dark:text-amber-300 border-amber-300",
+    "points": 30,
+    "disposal": "Contenedor Verde",
+    "disposalColor": "bg-green-600 text-white",
+    "envFact": "Los orgánicos pueden convertirse en compost y reducir lo que va al relleno sanitario.",
+    "decompositionTime": "2-4 semanas",
+    "tips": [
+      {
+        "type": "diy",
+        "title": "Compostaje en casa (básico)",
+        "summary": "Separa restos de frutas/verduras y hojas secas. Evita carnes y aceites si no tienes manejo adecuado.",
+        "examples": ["Compostera doméstica", "Baldes con material seco + húmedo"],
+        "resources": [
+          {
+            "title": "Compostaje casero (video)",
+            "url": "https://www.youtube.com/watch?v=k0wMWQEDuHI",
+            "kind": "youtube"
+          }
+        ]
+      },
+      {
+        "type": "diy",
+        "title": "Lombricompost (si tienes espacio)",
+        "summary": "Usa lombrices para transformar orgánicos en humus. Requiere cuidado de humedad y temperatura.",
+        "examples": ["Caja de lombricompost", "Humus para plantas"],
+        "resources": [
+          {
+            "title": "Lombricompost en casa (video)",
+            "url": "https://www.youtube.com/watch?v=TtLosi0NDAg",
+            "kind": "youtube"
+          }
+        ]
+      },
+      {
+        "type": "recycle",
+        "title": "Si no hay ruta de orgánicos, puede ir a negro",
+        "summary": "Si tu zona no tiene recolección selectiva de orgánicos y no compostas, normalmente se dispone como no aprovechable.",
+        "examples": ["Restos de comida cocinada sin ruta selectiva"]
+      }
+    ],
+    "moreInfo": {
+      "acceptedExamples": ["Cáscaras", "Restos de frutas y verduras", "Café", "Cáscaras de huevo (según método)"],
+      "notAcceptedExamples": ["Plásticos mezclados", "Químicos", "Colillas"],
+      "commonMistakes": ["Mezclar orgánicos con plásticos", "Dejar destapado y atraer plagas"],
+      "resources": []
+    }
+  },
+
+  "undetected": {
+    "name": "No detectado",
+    "icon": "❓",
+    "color": "bg-muted text-muted-foreground border-muted",
+    "points": 0,
+    "disposal": "Sin clasificación",
+    "disposalColor": "bg-muted text-muted-foreground",
+    "envFact": "Si no se detecta, selecciona manualmente para evitar errores al desechar.",
+    "decompositionTime": "-",
+    "tips": [
+      {
+        "type": "recycle",
+        "title": "Mejora la foto",
+        "summary": "Usa buena iluminación, fondo uniforme, enfoca el objeto y evita reflejos.",
+        "examples": ["Fondo blanco", "Objeto centrado", "Sin sombras fuertes"]
+      },
+      {
+        "type": "recycle",
+        "title": "Elige manualmente",
+        "summary": "Ofrece un selector: Blanco (aprovechables), Verde (orgánicos), Negro (no aprovechables).",
+        "examples": ["Botón: 'Seleccionar tipo de residuo'"]
+      }
+    ],
+    "moreInfo": {
+      "acceptedExamples": [],
+      "notAcceptedExamples": [],
+      "commonMistakes": ["Fotos oscuras", "Objeto muy lejos", "Fondo con mucho ruido"],
+      "resources": []
+    }
+  },
+
+  "non_recyclable": {
+    "name": "No Aprovechable (No reciclable)",
+    "icon": "🗑️",
+    "color": "bg-neutral-100 dark:bg-neutral-900/30 text-neutral-700 dark:text-neutral-200 border-neutral-300",
+    "points": 5,
+    "disposal": "Contenedor Negro",
+    "disposalColor": "bg-black text-white",
+    "envFact": "Lo no aprovechable va a negro para no contaminar los reciclables.",
+    "decompositionTime": "Depende del residuo",
+    "tips": [
+      {
+        "type": "diy",
+        "title": "Ecoladrillo (solo con plásticos no reciclables, limpios y secos)",
+        "summary": "Alternativa para compactar plásticos no reciclables; requiere hacerlo bien para que sea útil.",
+        "examples": ["Rellenar botella con plásticos blandos limpios y secos", "Compactar hasta que quede firme"],
+        "resources": [
+          {
+            "title": "Preguntas frecuentes y densidad recomendada (Ecobricks.org)",
+            "url": "https://ecobricks.org/es/faqs.php",
+            "kind": "official"
+          },
+          {
+            "title": "Cómo hacer un ecoladrillo (video)",
+            "url": "https://www.youtube.com/watch?v=W_eRlWoW9DI",
+            "kind": "youtube"
+          }
+        ]
+      },
+      {
+        "type": "recycle",
+        "title": "No mezcles con reciclables limpios",
+        "summary": "Si metes reciclables limpios en negro, los vuelves pérdida (no aprovechables).",
+        "examples": ["No mezclar botellas limpias con servilletas usadas"]
+      }
+    ],
+    "moreInfo": {
+      "acceptedExamples": ["Servilletas usadas", "Papel higiénico", "Residuos sanitarios"],
+      "notAcceptedExamples": ["Pilas/baterías y RAEE (manejo especial)", "Residuos peligrosos"],
+      "commonMistakes": ["Meter reciclables limpios en negro"],
+      "resources": [
+        {
+          "title": "Ecobricks FAQ (buenas prácticas)",
+          "url": "https://ecobricks.org/es/faqs.php",
+          "kind": "official"
+        }
+      ]
+    }
+  }
+}

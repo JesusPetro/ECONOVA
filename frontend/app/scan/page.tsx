@@ -9,90 +9,51 @@ import { Camera, Upload, Loader2, Recycle, Sparkles, Info, RefreshCw, Leaf, X, T
 import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
+import materialsJson from "./MaterialType.json"
 
-type MaterialType = {
+// types/materials.ts
+export type ResourceLink = {
+  title: string
+  url: string
+  kind: "youtube" | "blog" | "official"
+  note?: string
+}
+
+export type Tip = {
+  type: "recycle" | "diy" | "sell" | "donate"
+  title: string
+  summary: string
+  examples?: string[]
+  resources?: ResourceLink[]
+}
+
+export type MoreInfo = {
+  acceptedExamples: string[]
+  notAcceptedExamples: string[]
+  commonMistakes: string[]
+  resources?: ResourceLink[]
+}
+
+export type MaterialType = {
   name: string
   icon: string
   color: string
   points: number
-  tips: string[]
   disposal: string
   disposalColor: string
   envFact: string
   decompositionTime: string
+
+  tips: Tip[]
+  moreInfo: MoreInfo
 }
 
-const materials: Record<string, MaterialType> = {
-  plastic: {
-    name: "Botella de Plástico PET",
-    icon: "♻️",
-    color: "bg-warning/10 text-warning-foreground border-warning",
-    points: 50,
-    tips: [
-      "Enjuaga la botella antes de reciclar",
-      "Aplasta para reducir volumen",
-      "Retira la tapa si es posible"
-    ],
-    disposal: "Contenedor Blanco",          // ✅ CORREGIDO
-    disposalColor: "bg-white text-black",   // ✅ BLANCO VISIBLE
-    envFact:
-      "Las botellas de PET son 100% reciclables. Al reciclarla, ahorras energía para mantener una bombilla encendida por 6 horas.",
-    decompositionTime: "450 años",
-  },
 
-  paper: {
-    name: "Papel o Cartón",
-    icon: "📦",
-    color: "bg-blue-100 dark:bg-blue-900/20 text-blue-700 dark:text-blue-300 border-blue-300",
-    points: 40,
-    tips: [
-      "Asegúrate de que esté limpio y seco",
-      "Aplana las cajas de cartón",
-      "No incluyas papel encerado o plastificado",
-    ],
-    disposal: "Contenedor Azul",
-    disposalColor: "bg-blue-500",
-    envFact: "Reciclar una tonelada de papel salva aproximadamente 17 árboles.",
-    decompositionTime: "2-6 meses",
-  },
-  glass: {
-    name: "Vidrio",
-    icon: "🍷",
-    color: "bg-emerald-100 dark:bg-emerald-900/20 text-emerald-700 dark:text-emerald-300 border-emerald-300",
-    points: 60,
-    tips: ["Enjuaga los envases de vidrio", "Separa por color si es posible", "No incluyas vidrios rotos o cristales"],
-    disposal: "Contenedor Verde",
-    disposalColor: "bg-green-500",
-    envFact: "El vidrio puede reciclarse infinitas veces sin perder calidad.",
-    decompositionTime: "4000 años",
-  },
-  metal: {
-    name: "Lata de Aluminio",
-    icon: "🥫",
-    color: "bg-slate-100 dark:bg-slate-800/50 text-slate-700 dark:text-slate-300 border-slate-300",
-    points: 70,
-    tips: [
-      "Enjuaga las latas antes de reciclar",
-      "Aplasta para ahorrar espacio",
-      "Incluye latas de bebidas y conservas",
-    ],
-    disposal: "Contenedor Amarillo",
-    disposalColor: "bg-yellow-500",
-    envFact: "Reciclar aluminio ahorra 95% de la energía necesaria para producirlo desde cero.",
-    decompositionTime: "200-500 años",
-  },
-  organic: {
-    name: "Residuo Orgánico",
-    icon: "🍎",
-    color: "bg-amber-100 dark:bg-amber-900/20 text-amber-700 dark:text-amber-300 border-amber-300",
-    points: 30,
-    tips: ["Ideal para compostaje", "Mantén separado de otros residuos", "Incluye restos de frutas y verduras"],
-    disposal: "Contenedor Marrón o Compostaje",
-    disposalColor: "bg-amber-700",
-    envFact: "Los residuos orgánicos pueden convertirse en compost, un fertilizante natural.",
-    decompositionTime: "2-4 semanas",
-  },
+type ClassifyResponse = {
+  material?: string | null
 }
+
+export const materials = materialsJson as Record<string, MaterialType>
 
 export default function ScanPage() {
   const [selectedImage, setSelectedImage] = useState<string | null>(null)
@@ -107,7 +68,7 @@ export default function ScanPage() {
       const reader = new FileReader()
       reader.onloadend = () => {
         setSelectedImage(reader.result as string)
-        simulateScan()
+        scanWithAPI(file) // <-- aquí
       }
       reader.readAsDataURL(file)
     }
@@ -134,18 +95,82 @@ export default function ScanPage() {
     if (file) handleFileSelect(file)
   }
 
-  const simulateScan = () => {
+  
+
+// Convierte lo que devuelva YOLO a una key válida de tu diccionario `materials`
+const normalizeMaterialKey = (material?: string | null): keyof typeof materials | null => {
+  if (!material) return null
+
+  const m = material.toLowerCase().trim()
+
+  const map: Record<string, keyof typeof materials> = {
+    // Español
+    "plastico": "plastic",
+    "plástico": "plastic",
+    "pet": "plastic",
+
+    "papel": "paper",
+    "carton": "paper",
+    "cartón": "paper",
+
+    "vidrio": "glass",
+
+    "metal": "metal",
+    "aluminio": "metal",
+    "lata": "metal",
+
+    "organico": "organic",
+    "orgánico": "organic",
+
+    // Inglés (por si el modelo retorna en inglés)
+    "plastic": "plastic",
+    "paper": "paper",
+    "glass": "glass",
+    "organic": "organic",
+  }
+
+  return map[m] ?? (m as keyof typeof materials) ?? null
+}
+
+const scanWithAPI = async (file: File) => {
     setIsScanning(true)
     setDetectedMaterial(null)
+    setShowInfo(false)
 
-    // Simulate AI processing
-    setTimeout(() => {
-      const materialKeys = Object.keys(materials)
-      const randomMaterial = materialKeys[0]
-      setDetectedMaterial(materials[randomMaterial])
+    try {
+      const formData = new FormData()
+      formData.append("image", file)
+
+      const baseUrl = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:8000"
+      const res = await fetch(`${baseUrl}/classify/image`, {
+        method: "POST",
+        body: formData,
+      })
+
+      if (!res.ok) {
+        const txt = await res.text().catch(() => "")
+        throw new Error(txt || `Error HTTP ${res.status}`)
+      }
+
+      const data = (await res.json()) as ClassifyResponse
+      const key = normalizeMaterialKey(data.material)
+
+      // Fallback a undetected si no existe
+      if (!key || !(key in materials)) {
+        setDetectedMaterial(materials.undetected)
+        return
+      }
+
+      setDetectedMaterial(materials[key])
+    } catch (err) {
+      console.error("Scan error:", err)
+      setDetectedMaterial(materials.undetected)
+    } finally {
       setIsScanning(false)
-    }, 2500)
+    }
   }
+
+
 
   const resetScan = () => {
     setSelectedImage(null)
@@ -338,28 +363,82 @@ export default function ScanPage() {
                     </h4>
                     <div className="grid gap-3">
                       {detectedMaterial.tips.map((tip, index) => (
-                        <Card key={index} className="p-4 bg-card/50 border-border/50">
-                          <div className="flex items-start gap-3">
-                            <div className="w-6 h-6 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
-                              <span className="text-xs font-bold text-primary">{index + 1}</span>
-                            </div>
-                            <p className="text-sm text-foreground leading-relaxed flex-1">{tip}</p>
-                          </div>
-                        </Card>
-                      ))}
+  <Card key={index} className="p-4 bg-card/50 border-border/50">
+    <div className="flex items-start gap-3">
+      <div className="w-6 h-6 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
+        <span className="text-xs font-bold text-primary">{index + 1}</span>
+      </div>
+
+      <div className="flex-1 space-y-2">
+        <div className="space-y-1">
+          <div className="flex items-center gap-2">
+            <p className="text-sm font-semibold text-foreground">{tip.title}</p>
+
+            {/* opcional: etiqueta del tipo */}
+            {"type" in tip && tip.type ? (
+              <span className="text-[10px] px-2 py-0.5 rounded-full bg-muted text-muted-foreground border border-border/50">
+                {tip.type.toUpperCase()}
+              </span>
+            ) : null}
+          </div>
+
+          <p className="text-sm text-muted-foreground leading-relaxed">
+            {"summary" in tip ? tip.summary : (tip as any).how}
+          </p>
+        </div>
+
+        {!!tip.examples?.length && (
+          <div className="text-xs text-muted-foreground">
+            <p className="font-semibold mb-1">Ejemplos:</p>
+            <ul className="list-disc pl-4 space-y-0.5">
+              {tip.examples.map((ex, i) => (
+                <li key={i}>{ex}</li>
+              ))}
+            </ul>
+          </div>
+        )}
+
+        {!!(tip.resources?.length ?? (tip as any).links?.length) && (
+          <div className="text-xs">
+            <p className="font-semibold text-muted-foreground mb-1">Recursos:</p>
+            <ul className="space-y-1">
+              {(tip.resources ?? (tip as any).links).map((l: any, i: number) => (
+                <li key={i}>
+                  <a
+                    href={l.url}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="underline text-primary hover:opacity-80"
+                  >
+                    {l.title}
+                  </a>
+                  {l.note ? <span className="text-muted-foreground"> — {l.note}</span> : null}
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
+      </div>
+    </div>
+  </Card>
+))}
                     </div>
                   </div>
 
                   {/* Disposal Information */}
                   <div className="grid md:grid-cols-2 gap-4">
                     <Card className="p-5 bg-card border-border relative overflow-hidden">
-<div className="flex items-center gap-4">
-  <div
-    className={`w-16 h-20 ${detectedMaterial.disposalColor} rounded-lg relative shadow-lg flex items-center justify-center transition-transform hover:scale-105`}
-  >
-    <div className="absolute top-1 left-1/2 -translate-x-1/2 w-10 h-2 bg-black/20 rounded-t-lg"></div>
-    <Recycle className="h-7 w-7 text-green-600" />
-  </div>
+            <div className="flex items-center gap-4">
+              <div
+                className={`w-16 h-20 ${detectedMaterial.disposalColor} rounded-lg relative shadow-lg flex items-center justify-center transition-transform hover:scale-105`}
+              >
+                <div className="absolute top-1 left-1/2 -translate-x-1/2 w-10 h-2 bg-black/20 rounded-t-lg"></div>
+                <Recycle
+              className={`h-7 w-7 ${
+                detectedMaterial.disposal !== "Contenedor Blanco" ? "text-white" : "text-green-600"
+              }`}
+            />
+    </div>
 
   <div className="flex-1">
     <p className="font-bold text-lg text-foreground">

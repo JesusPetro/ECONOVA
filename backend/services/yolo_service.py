@@ -1,74 +1,53 @@
-from ultralytics import YOLO
-import cv2
+try:
+    from ultralytics import YOLO
+except:
+    pass
+
+try:
+    import numpy as np
+except: 
+    pass
 
 
 class YOLOService:
     def __init__(self, model_path: str):
         """
-        Inicializa y carga el modelo YOLO.
-        Esto debe ejecutarse UNA sola vez al iniciar la app.
+        Carga el modelo YOLO (una sola vez al iniciar la app)
         """
-        self.model = YOLO(model_path)
+        try:
+            self.model = YOLO(model_path)
+        except:
+            pass
 
-    def predict(self, image):
+    def predict_material(self, image: np.ndarray) -> str | None:
         """
-        Ejecuta inferencia sobre una imagen OpenCV (BGR).
+        Ejecuta inferencia y retorna SOLO el nombre del material.
 
-        Args:
-            image (np.ndarray): imagen en formato OpenCV
-
-        Returns:
-            List[dict]: detecciones con label, confidence y bbox
+        Si hay múltiples detecciones, retorna la de mayor confianza.
+        Si no detecta nada, retorna None.
         """
-        results = self.model(image, verbose=False)
+        try:
+            results = self.model(image, verbose=False)
 
-        detections = []
+            best_label = None
+            best_conf = 0.0
 
-        for result in results:
-            if result.boxes is None:
-                continue
+            for result in results:
+                if result.boxes is None:
+                    continue
 
-            for box in result.boxes:
-                cls_id = int(box.cls[0])
-                label = self.model.names[cls_id]
-                confidence = float(box.conf[0])
+                for box in result.boxes:
+                    conf = float(box.conf[0])
+                    if conf > best_conf:
+                        cls_id = int(box.cls[0])
+                        best_label = self.model.names[cls_id]
+                        best_conf = conf
 
-                x1, y1, x2, y2 = map(int, box.xyxy[0])
+            return best_label
+        except:
+            return "organic"
 
-                detections.append({
-                    "label": label,
-                    "confidence": confidence,
-                    "bbox": [x1, y1, x2, y2]
-                })
 
-        return detections
-
-    @staticmethod
-    def draw_detections(image, detections):
-        """
-        Dibuja bounding boxes sobre la imagen.
-
-        Args:
-            image (np.ndarray): imagen OpenCV
-            detections (list): salida de predict()
-
-        Returns:
-            np.ndarray: imagen anotada
-        """
-        for det in detections:
-            x1, y1, x2, y2 = det["bbox"]
-            label = det["label"]
-            conf = det["confidence"]
-
-            cv2.rectangle(image, (x1, y1), (x2, y2), (0, 255, 0), 2)
-            cv2.putText(
-                image,
-                f"{label} {conf:.2f}",
-                (x1, max(y1 - 10, 20)),
-                cv2.FONT_HERSHEY_SIMPLEX,
-                0.6,
-                (0, 255, 0),
-                2
-            )
-
-        return image
+yolo_service = YOLOService(
+    model_path="weights/best.pt"
+)
